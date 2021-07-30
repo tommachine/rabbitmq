@@ -35,4 +35,16 @@ public class RabbitmqUtil {
         return consumer;
     }
 
+    public static DefaultConsumer getDefaultAckConsumer(Channel channel, String consumerName) {
+        DefaultConsumer consumer = new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                long deliveryTag = envelope.getDeliveryTag();
+                System.out.println(consumerName + "接收到消息：" + new String(body));
+                channel.basicAck(deliveryTag,false);
+            }
+        };
+        return consumer;
+    }
+
 }

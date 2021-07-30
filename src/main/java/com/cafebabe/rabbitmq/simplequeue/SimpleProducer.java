@@ -17,7 +17,7 @@ public class SimpleProducer {
         Connection connection = RabbitmqUtil.getConnection();
         Channel channel = connection.createChannel();
         //声明队列
-        channel.queueDeclare(QUEUE_NAME, true, false, true, null);
+        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
 
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
